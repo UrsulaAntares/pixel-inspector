@@ -1,0 +1,351 @@
+
+<!-- <script src="jquery.js"></script>
+<script type="text/javascript">
+    window.onload = function(){
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+        var img = new Image();
+        img.src = 'whitemandarksuit.jpg';
+        context.drawImage(img, 0, 0);
+    };
+
+    function findPos(obj){
+    var current_left = 0, current_top = 0;
+    if (obj.offsetParent){
+        do{
+            current_left += obj.offsetLeft;
+            current_top += obj.offsetTop;
+        }while(obj = obj.offsetParent);
+        return {x: current_left, y: current_top};
+    }
+    return undefined;
+    }
+
+    function rgbToHex(r, g, b){
+    if (r > 255 || g > 255 || b > 255)
+        throw "Invalid color component";
+    return ((r << 16) | (g << 8) | b).toString(16);
+    }
+
+$('#myCanvas').click(function(e){
+    var position = findPos(this);
+    var x = e.pageX - position.x;
+    var y = e.pageY - position.y;
+    var coordinate = "x=" + x + ", y=" + y;
+    var canvas = this.getContext('2d');
+    var p = canvas.getImageData(x, y, 1, 1).data;
+    var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
+    alert("HEX: " + hex);
+}); -->
+
+
+
+
+<!DOCTYPE html>
+<html>
+        <style>
+        .dot {
+            height: 10px; width: 10px;
+            border-radius: 50%;
+            /* background: rgba(239,204,120,255); */
+            position: absolute;
+          }
+        .swatch {
+            width:100%; 
+            height:20px; 
+            display:inline-block; 
+            float:left; 
+            /* border:solid 1px #ccc; */
+        }
+        .mini-swatch{
+            width:7px;  
+        }
+        div#scratch{
+            width: 770px;
+            background: #888;
+            height:300px;
+        }
+        td {
+            text-align: center;
+            min-width:34px;
+            max-width: 500px;
+        }
+
+        div#dataDisplay{
+            float:right;
+        } 
+        .break {
+            background: #222;
+            height: 20px;
+            color: #CCC;
+            font-size: .74em;
+            overflow-wrap: break-word;
+        } 
+
+        </style>
+<body>
+<img id="scream" width="0" height="0" src="whitemandarksuit2.png" alt="The Scream">
+<!-- <h2>Canvas:</h2> -->
+<canvas id="myCanvas" width="650" height="500" style="border:1px solid #d3d3d3; background:#d3d3d3">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<div id="dataDisplay">
+<!-- <h2>Data We Get Back: </h2> -->
+<table id="data-table">
+    <thead>
+        <td>Color</td>
+        <td>Grayscale</td>
+        <td>Thresholds</td>
+        <td>Origin</td>
+        <td>Red</td>
+        <td>Green</td>
+        <td>Blue</td>
+        <td>Alpha</td>
+        <td>Red</td>
+        <td>Green</td>
+        <td>Blue</td>
+        <td>Inverse</td>
+        <td>Average</td>
+    </thead>
+    <tbody></tbody>
+</table>
+</div>
+
+<div id="scratch"></div>
+
+
+<script>
+    c = document.getElementById("myCanvas");
+    window.onload = function() {
+    var ctx = c.getContext("2d");
+    img = document.getElementById("scream");
+    //   img.crossOrigin = "Anonymous";
+    ctx.drawImage(img, 00, 0);
+    // var imgData = ctx.getImageData(x, y, 30, 30);
+    // ctx.putImageData(imgData, 600, 0)    
+}
+
+
+
+// this one works great! Just discarding it for more specific behavior below
+// window.onclick = function() {
+//   var c = document.getElementById("myCanvas");
+//   var ctx = c.getContext("2d");
+//   var img = document.getElementById("scream");
+// //   img.crossOrigin = "Anonymous";
+//   ctx.drawImage(img, 300, 300, 5, 5, 600, 90, 200, 200);
+//   console.log(event.target.clientX)
+//       /*context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);*/
+//     //   getPix(x,y)
+// }
+
+// Below are 11 functions for illustrating b&w threshholds
+function bw00(colorAverage){
+    if (colorAverage > 255*(0/10) ) {return "rgb(255, 255, 255)";} else {return "rgb(0, 0, 0)";}}
+function bw10(colorAverage){
+    if (colorAverage > 255*(1/10) ) {return "rgb(255, 255, 255)";} else {return "rgb(0, 0, 0)";}}
+function bw10(colorAverage){
+    if (colorAverage > 255*(1/10) ) {return "rgb(255, 255, 255)";} else {return "rgb(0, 0, 0)";}}
+function bw20(colorAverage){
+    if (colorAverage > 255*(2/10) ) {return "rgb(255, 255, 255)";} else {return "rgb(0, 0, 0)";}}
+function bw30(colorAverage){
+    if (colorAverage > 255*(3/10) ) {return "rgb(255, 255, 255)";} else {return "rgb(0, 0, 0)";}}
+function bw40(colorAverage){
+    if (colorAverage > 255*(4/10) ) {return "rgb(255, 255, 255)";} else {return "rgb(0, 0, 0)";}}
+function bw50(colorAverage){
+    if (colorAverage > 255*(1/2) ) {return "rgb(255, 255, 255)";} else {return "rgb(0, 0, 0)";}}
+function bw60(colorAverage){
+    if (colorAverage > 255*(6/10) ) {return "rgb(255, 255, 255)";} else {return "rgb(0, 0, 0)";}}
+function bw70(colorAverage){
+    if (colorAverage > 255*(7/10) ) {return "rgb(255, 255, 255)";} else {return "rgb(0, 0, 0)";}}
+function bw80(colorAverage){
+    if (colorAverage > 255*(8/10) ) {return "rgb(255, 255, 255)";} else {return "rgb(0, 0, 0)";}}
+function bw90(colorAverage){
+    if (colorAverage > 255*(9/10) ) {return "rgb(255, 255, 255)";} else {return "rgb(0, 0, 0)";}}
+function bw100(colorAverage){
+    if (colorAverage > 255*(10/10) ) {return "rgb(255, 255, 255)";} else {return "rgb(0, 0, 0)";}}  
+
+
+function getPix(x, y){
+    var c = document.querySelector("canvas");  
+    var ctx = c.getContext("2d");
+    var imgData = ctx.getImageData((x-10), (y-12), 10, 10);
+
+
+
+
+// Below are replicas of the area clicked on, enlarged, for context. 
+// This is for illustration only, to show the source of the image where clicked.
+    ctx.drawImage(img, (x), y, 100, 100, 540, 10, 100, 100);
+    ctx.drawImage(img, (x), y, 27, 27, 540, 130, 100, 100);
+    ctx.drawImage(img, (x), y, 10, 10, 540, 250, 100, 100);
+    ctx.drawImage(img, (x), y, 1, 1, 540, 370, 100, 120);
+//below we will output this data to the DOM
+    // let dataPrint = document.createElement("div")
+    // let dataDiv = document.getElementById("dataDiv")
+    // let pixelRow = document.createElement("tr")
+    // let dataRow = document.createElement("tr")
+    // let dataTable = document.querySelector("#data-table tbody")
+
+        // end rows, begin content definition
+    // red = imgData.data[0];
+    // green = imgData.data[1];
+    // blue = imgData.data[2];
+    // alpha = imgData.data[3];
+    // console.log("Color values: " + red + " " + green + " " + blue + " " + alpha)
+    console.log("---------------------------")
+    // coordinatesText = `${x} x ${y}`
+    // color = `rgba(${red},${green},${blue},${alpha})`
+    // redOnly = `rgba(${red}, 0, 0,${red})`
+    // greenOnly =`rgba(0,${green},0,${green})`
+    // blueOnly = `rgba(0, 0, ${blue}, ${blue})`
+    // alphaOnly = `rgba(${red},${green},${blue},${alpha})`
+    // inverse = `rgba(${(255-red)},${(255-green)},${(255-blue)},${alpha})`
+    // colorAverage = Math.round((red+green+blue)*.27)
+    // gray = `rgb(${colorAverage},${colorAverage},${colorAverage})`
+
+    // makerow(imgData)   
+    data = imgData.data
+    let breakRow = document.createElement("tr")
+    breakRow.innerHTML=`<td colspan="13">${data}</td>`
+    breakRow.classList.add("break")
+    let dataTable = document.querySelector("#data-table tbody")
+    var i,j,temparray,chunk = 4;
+    for (i=0,j=data.length; i<j; i+=chunk) {
+        temparray = data.slice(i,i+chunk);
+        // console.log(temparray)
+        // do whatever 
+        makerow(temparray)
+    }
+    dataTable.prepend(breakRow)
+}
+
+
+//begin rowmaker
+
+makerow = function(data) {
+    red = data[0];
+    green = data[1];
+    blue = data[2];
+    alpha = data[3];
+
+
+
+    // console.log("Color values: " + red + " " + green + " " + blue + " " + alpha)
+    // console.log("---------------------------")
+    coordinatesText = `${x} x ${y}`
+    color = `rgba(${red},${green},${blue},${alpha})`
+    redOnly = `rgba(${red}, 0, 0,${red})`
+    greenOnly =`rgba(0,${green},0,${green})`
+    blueOnly = `rgba(0, 0, ${blue}, ${blue})`
+    alphaOnly = `rgba(${red},${green},${blue},${alpha})`
+
+
+    inverse = `rgba(${(255-red)},${(255-green)},${(255-blue)},${alpha})`
+    colorAverage = Math.round((red+green+blue)/3)
+    gray = `rgb(${colorAverage},${colorAverage},${colorAverage})`
+
+    
+    //end content definition
+    //begin row placement
+    let pixelRow = document.createElement("tr")
+    let dataRow = document.createElement("tr")
+    let dataTable = document.querySelector("#data-table tbody")
+    dataTable.prepend(pixelRow)
+    pixelRow.innerHTML=`<tr class="color-row">
+            <td><div class="swatch" class="swatch" style="background: ${color}"></div></td>
+            <td><div class="swatch" style="background: ${gray}"></div></td>
+            <td>
+                <div class="swatch mini-swatch" style="background: ${bw00(colorAverage)}"></div>
+                <div class="swatch mini-swatch" style="background: ${bw10(colorAverage)}"></div>
+                <div class="swatch mini-swatch" style="background: ${bw20(colorAverage)}"></div>
+                <div class="swatch mini-swatch" style="background: ${bw30(colorAverage)}"></div>
+                <div class="swatch mini-swatch" style="background: ${bw40(colorAverage)}"></div>
+                <div class="swatch mini-swatch" style="background: ${bw50(colorAverage)}"></div>
+                <div class="swatch mini-swatch" style="background: ${bw60(colorAverage)}"></div>
+                <div class="swatch mini-swatch" style="background: ${bw70(colorAverage)}"></div>
+                <div class="swatch mini-swatch" style="background: ${bw80(colorAverage)}"></div>
+                <div class="swatch mini-swatch" style="background: ${bw90(colorAverage)}"></div>
+                <div class="swatch mini-swatch" style="background: ${bw100(colorAverage)}"></div>
+            </td>
+            <td>${coordinatesText}</td>
+            <td>${red}</td>
+            <td>${green}</td>
+            <td>${blue}</td>
+            <td>${alpha}</td>
+            <td><div class="swatch" class="swatch" style="background: ${redOnly}"></div></td>
+            <td><div class="swatch" class="swatch" style="background: ${greenOnly}"></div></td>
+            <td><div class="swatch" class="swatch" style="background: ${blueOnly}"></div></td>
+            <td><div class="swatch" class="swatch" style="background: ${inverse}"></div></td>
+            <td>${colorAverage}</td>
+            </tr>`
+        }
+
+//end rowmaker
+
+// c.addEventListener("mouseover", event=> {
+//     console.log(`Coordinates: ${event.pageX} x ${event.pageY}`)
+//     x = event.pageX -13
+//     y = event.pageY -100
+//     var c = document.getElementById("myCanvas");  
+//     var ctx = c.getContext("2d");
+    
+//     var imgData = ctx.getImageData(x, y, 90, 30);
+  
+//     red = imgData.data[0];
+//     green = imgData.data[1];
+//     blue = imgData.data[2];
+//     alpha = imgData.data[3];
+//     console.log("Color values: " + red + " " + green + " " + blue + " " + alpha)
+//     ctx.putImageData(imgData, 800, 0)
+// })
+
+
+window.addEventListener("click", event => {
+    console.log(`Coordinates: ${event.pageX} x ${event.pageY}`)
+    x = event.pageX -14
+    y = event.pageY -12
+    console.log(`Coordinates: ${x} x ${y}`)
+    console.log("-------------------------")
+    // otherX = x+5
+    // otherY = y+5
+    getPix(x, y)
+    // getPix(otherX, otherY)
+    let cdot = document.createElement("div");
+    cdot.className = "dot";
+    cdot.style.background = `${color}`
+    cdot.style.left = ((event.pageX*.27) + 0) + "px";
+    cdot.style.top = (event.pageY*.27+520) + "px";
+    document.body.appendChild(cdot);
+    //begin gray dot
+    let gdot = document.createElement("div");
+    gdot.className = "dot";
+    gdot.style.background = `${gray}`
+    gdot.style.left = ((event.pageX*.27) + 200) + "px";
+    gdot.style.top = (event.pageY*.27+520) + "px";
+    document.body.appendChild(gdot);
+    // begin thresholds
+    let bwdot = document.createElement("div");
+    bwdot.className = "dot";
+    bwdot.style.background = `${bw50(colorAverage)}`
+    bwdot.style.left = ((event.pageX*.27) + 400) + "px";
+    bwdot.style.top = (event.pageY*.27+520) + "px";
+    document.body.appendChild(bwdot);
+    //begin channel dot
+    let xdot = document.createElement("div");
+    xdot.className = "dot";
+    xdot.style.background = `${inverse}`
+    xdot.style.left = ((event.pageX*.27) + 600) + "px";
+    xdot.style.top = (event.pageY*.27+520) + "px";
+    document.body.appendChild(xdot);
+  });
+
+
+</script>
+
+
+
+
+</body>
+</html>
