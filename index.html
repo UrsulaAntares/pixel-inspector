@@ -55,7 +55,7 @@ $('#myCanvas').click(function(e){
             height:20px; 
             display:inline-block; 
             float:left; 
-            /* border:solid 1px #ccc; */
+
         }
         .mini-swatch{
             width:7px;  
@@ -135,7 +135,7 @@ Your browser does not support the HTML5 canvas tag.
 //   var img = document.getElementById("scream");
 // //   img.crossOrigin = "Anonymous";
 //   ctx.drawImage(img, 300, 300, 5, 5, 600, 90, 200, 200);
-//   console.log(event.target.clientX)
+
 //       /*context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);*/
 //     //   getPix(x,y)
 // }
@@ -194,7 +194,7 @@ function getPix(x, y){
     // blue = imgData.data[2];
     // alpha = imgData.data[3];
     // console.log("Color values: " + red + " " + green + " " + blue + " " + alpha)
-    console.log("---------------------------")
+
     // coordinatesText = `${x} x ${y}`
     // color = `rgba(${red},${green},${blue},${alpha})`
     // redOnly = `rgba(${red}, 0, 0,${red})`
@@ -214,8 +214,7 @@ function getPix(x, y){
     var i,j,temparray,chunk = 4;
     for (i=0,j=data.length; i<j; i+=chunk) {
         temparray = data.slice(i,i+chunk);
-        // console.log(temparray)
-        // do whatever 
+
         makerow(temparray)
     }
     dataTable.prepend(breakRow)
@@ -232,8 +231,7 @@ makerow = function(data) {
 
 
 
-    // console.log("Color values: " + red + " " + green + " " + blue + " " + alpha)
-    // console.log("---------------------------")
+
     coordinatesText = `${x} x ${y}`
     color = `rgba(${red},${green},${blue},${alpha})`
     redOnly = `rgba(${red}, 0, 0,${red})`
