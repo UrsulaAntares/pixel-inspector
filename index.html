@@ -84,7 +84,7 @@ $('#myCanvas').click(function(e){
 
         </style>
 <body>
-<img id="scream" width="0" height="0" src="whitemandarksuit2.png" alt="The Scream">
+<img id="scream" width="0" height="0" src="https://i.imgur.com/0WbfdHQ.jpg" alt="The Scream" crossorigin="anonymous" />
 <!-- <h2>Canvas:</h2> -->
 <canvas id="myCanvas" width="650" height="500" style="border:1px solid #d3d3d3; background:#d3d3d3">
 Your browser does not support the HTML5 canvas tag.
@@ -120,7 +120,7 @@ Your browser does not support the HTML5 canvas tag.
     window.onload = function() {
     var ctx = c.getContext("2d");
     img = document.getElementById("scream");
-    //   img.crossOrigin = "Anonymous";
+      img.crossOrigin = "Anonymous";
     ctx.drawImage(img, 00, 0);
     // var imgData = ctx.getImageData(x, y, 30, 30);
     // ctx.putImageData(imgData, 600, 0)    
