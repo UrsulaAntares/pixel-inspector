@@ -86,7 +86,7 @@ $('#myCanvas').click(function(e){
 <body>
 <img id="scream" width="0" height="0" src="https://i.imgur.com/0WbfdHQ.jpg" alt="The Scream" crossorigin="anonymous" />
 <!-- <h2>Canvas:</h2> -->
-<canvas id="myCanvas" width="650" height="500" style="border:1px solid #d3d3d3; background:#d3d3d3">
+<canvas id="myCanvas" width="763" height="500" style="border:1px solid #d3d3d3; background:#d3d3d3">
 Your browser does not support the HTML5 canvas tag.
 </canvas>
 
@@ -177,10 +177,16 @@ function getPix(x, y){
 
 // Below are replicas of the area clicked on, enlarged, for context. 
 // This is for illustration only, to show the source of the image where clicked.
-    ctx.drawImage(img, (x), y, 100, 100, 540, 10, 100, 100);
-    ctx.drawImage(img, (x), y, 27, 27, 540, 130, 100, 100);
-    ctx.drawImage(img, (x), y, 10, 10, 540, 250, 100, 100);
-    ctx.drawImage(img, (x), y, 1, 1, 540, 370, 100, 120);
+    // ctx.drawImage(img, (x), y, 100, 100, 650, 10, 100, 100);
+    // ctx.drawImage(img, (x), y, 27, 27, 650, 130, 100, 100);
+    // ctx.drawImage(img, (x), y, 10, 10, 650, 250, 100, 100);
+    // ctx.drawImage(img, (x), y, 1, 1, 650, 370, 100, 120);
+    // Above is for a more normal 1/1 ratio; below, we are scaling.
+
+    ctx.drawImage(img, ((x*3.8)), (y*4.9), 100*3, 100*3, 650, 10, 100, 100);
+    ctx.drawImage(img, (x*3.8), (y*4.9), 27, 27, 650, 130, 100, 100);
+    ctx.drawImage(img, (x*3.8), (y*4.9), 10, 10, 650, 250, 100, 100);
+    ctx.drawImage(img, (x*3.8), (y*4.9), 1, 1, 650, 370, 100, 120);
 //below we will output this data to the DOM
     // let dataPrint = document.createElement("div")
     // let dataDiv = document.getElementById("dataDiv")
